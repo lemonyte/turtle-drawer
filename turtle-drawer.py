@@ -1,6 +1,7 @@
 import argparse
 import math
 import turtle
+from typing import Optional
 
 from svgpathtools import svg2paths
 
@@ -42,7 +43,7 @@ def move_to(coords: tuple[float, float], draw: bool = True):
     turtle.pen(pendown=wasdown)
 
 
-def draw_path(path, color: str = None, fill: str = None):
+def draw_path(path, color: Optional[str] = None, fill: Optional[str] = None):
     if color:
         turtle.color(color)
     for segment in path:
@@ -57,7 +58,7 @@ def draw_path(path, color: str = None, fill: str = None):
 
 
 def main(file_path: str, loop: bool = False, quality: int = 1, n: int = 0):
-    paths, attrs, svg_attrs = svg2paths(file_path, return_svg_attributes=True)
+    paths, attrs, svg_attrs = svg2paths(file_path, return_svg_attributes=True)  # type: ignore
     attrs = parse_styles(attrs)
     width, height = int(float(svg_attrs['width'])), int(float(svg_attrs['height']))
     offset = [-width / 2, -height / 2]
