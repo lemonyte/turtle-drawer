@@ -1,27 +1,30 @@
 import argparse
 import math
-import turtle
+from turtle import Screen, Turtle
 from typing import Optional
 
 from svgpathtools import svg2paths
 
+turtle = Turtle()
+screen = Screen()
+
 
 def parse_styles(attrs: list[dict]) -> list[dict]:
-    for d in attrs:
+    for dictionary in attrs:
         try:
-            style = d['style'].replace(' ', '')
+            pairs = dictionary['style'].replace(' ', '')
         except KeyError:
             continue
-        x = style.rstrip(';').split(';')
-        for i in x:
-            k, v = i.split(':')
-            if v == 'none':
-                v = None
-            d[k] = v
+        pairs = pairs.rstrip(';').split(';')
+        for pair in pairs:
+            key, value = pair.split(':')
+            if value == 'none':
+                value = None
+            dictionary[key] = value
     return attrs
 
 
-def parse_paths(paths: list, quality: int = 8, offset: list = [0, 0]) -> list[list]:
+def parse_paths(paths: list, quality: int = 8, offset: tuple[float, float] = (0, 0)) -> list[list]:
     new_paths = []
     for path in paths:
         new_path = []
@@ -29,8 +32,8 @@ def parse_paths(paths: list, quality: int = 8, offset: list = [0, 0]) -> list[li
             points = []
             for segment in subpaths:
                 interp_num = math.ceil(segment.length() / quality)
-                p = [x / interp_num for x in range(interp_num)]
-                points.extend([segment.point(x) for x in p])
+                positions = [x / interp_num for x in range(interp_num)]
+                points.extend([segment.point(position) for position in positions])
             new_path.append([(point.real + offset[0], -point.imag - offset[1]) for point in points])
         new_paths.append(new_path)
     return new_paths
@@ -57,14 +60,14 @@ def draw_path(path, color: Optional[str] = None, fill: Optional[str] = None):
             turtle.end_fill()
 
 
-def main(file_path: str, loop: bool = False, quality: int = 1, n: int = 0):
+def main(file_path: str, loop: bool = False, quality: int = 1, n: int = 0):  # pylint: disable=invalid-name
     paths, attrs, svg_attrs = svg2paths(file_path, return_svg_attributes=True)  # type: ignore
     attrs = parse_styles(attrs)
     width, height = int(float(svg_attrs['width'])), int(float(svg_attrs['height']))
-    offset = [-width / 2, -height / 2]
+    offset = (-width / 2, -height / 2)
     paths = parse_paths(paths, quality, offset)
-    turtle.tracer(n=n, delay=0)
-    turtle.screensize(width, height)
+    screen.tracer(n=n, delay=0)
+    screen.screensize(width, height)
     while True:
         turtle.reset()
         turtle.hideturtle()
@@ -72,8 +75,8 @@ def main(file_path: str, loop: bool = False, quality: int = 1, n: int = 0):
             draw_path(path, attr.get('stroke'), attr.get('fill'))
         if not loop:
             break
-    turtle.update()
-    turtle.mainloop()
+    screen.update()
+    screen.mainloop()
 
 
 if __name__ == '__main__':
