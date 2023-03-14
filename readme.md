@@ -18,7 +18,7 @@ Optional executable file for Windows users. Python and the required packages are
 
 ## Usage
 
-Download the executable file `turtle-drawer.exe` from the [latest release](https://github.com/lemonyte/turtle-drawer/releases/latest). If you are not using Windows, download the source code and use the Python file.
+Download the executable file `turtle_drawer.exe` from the [latest release](https://github.com/lemonyte/turtle-drawer/releases/latest). If you are not using Windows, download the source code and use the Python file.
 
 ### Preparing an Image
 
@@ -27,7 +27,7 @@ First, choose a regular image to draw. Simple 2D images like clipart vectorize b
 Command syntax:
 
 ```bash
-./turtle-drawer.exe [-h] [-l] [-q QUALITY] [-n N] image_path
+./turtle_drawer.exe [-h] [-l] [-q QUALITY] [-n N] image_path
 ```
 
 ### Options
@@ -42,10 +42,10 @@ Option|Parameters|Default|Description
 Example:
 
 ```bash
-./turtle-drawer.exe -l -q 8 -n 1000 path/to/image.svg
+./turtle_drawer.exe -l -q 8 -n 1000 path/to/image.svg
 ```
 
-If you are using the Python file, replace `./turtle-drawer.exe` with `python turtle-drawer.py`. When run, the program will take some time to first unpack all the necessary resources if the `.exe` file is being used, and then parse the SVG image. The time it takes to parse and draw the image depends on the complexity of the image and the performance of your system. Experiment with the `-n` option to find a value that works well. For complex images a value of `100` or greater is recommended.
+If you are using the Python file, replace `./turtle_drawer.exe` with `python turtle_drawer.py`. When run, the program will take some time to first unpack all the necessary resources if the `.exe` file is being used, and then parse the SVG image. The time it takes to parse and draw the image depends on the complexity of the image and the performance of your system. Experiment with the `-n` option to find a value that works well. For complex images a value of `100` or greater is recommended.
 
 ## License
 

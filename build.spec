@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['turtle-drawer.py'],
+a = Analysis(['turtle_drawer.py'],
              pathex=[],
              binaries=[],
              datas=[],
@@ -26,7 +26,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,  
           [],
-          name='turtle-drawer',
+          name='turtle_drawer',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
