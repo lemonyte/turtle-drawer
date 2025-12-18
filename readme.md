@@ -4,6 +4,8 @@ Draw raster images using Python's Turtle library.
 
 This script is a demo of my [pyautotrace](https://github.com/lemonyte/pyautotrace) library.
 
+![turtle-drawer-demo](https://github.com/user-attachments/assets/7ece9e28-1985-402b-8f25-97e703b716f6)
+
 ## Usage
 
 First, choose a regular JPEG or PNG image to draw. Simple 2D images like clipart vectorize best.
@@ -21,7 +23,7 @@ uv run https://raw.githubusercontent.com/lemonyte/turtle-drawer/refs/heads/main/
 Command syntax:
 
 ```bash
-uv run turtle_drawer.py [-h] [-l] [-q QUALITY] [--speed SPEED] [--width WIDTH] [--height HEIGHT] path
+uv run turtle_drawer.py [-h] [-l] [-q QUALITY] [--speed SPEED] [--size SIZE] path
 ```
 
 ### Options
@@ -37,7 +39,7 @@ Option|Type|Default|Description
 Example:
 
 ```bash
-uv run turtle_drawer.py --loop --quality 50 --speed 100 --size 900 path/to/image.png
+uv run turtle_drawer.py --loop --quality 50 --speed 100 --size 900 serpent.png
 ```
 
 When run, the program will take some time to vectorize the raster image. The time it takes to vectorize and draw the image depends on the complexity of the image and the performance of your system. Experiment with the `--speed` option to find a value that works well. For complex images a value of `1000` or greater is recommended.
