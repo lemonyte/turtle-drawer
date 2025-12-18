@@ -1,51 +1,46 @@
 # Turtle Drawer
 
-Draw SVG images using Python's Turtle library.
+Draw raster images using Python's Turtle library.
 
-## Requirements
-
-### Python File
-
-- [Python 3.9](https://www.python.org/downloads/) or higher
-- Packages listed in [`requirements.txt`](requirements.txt)
-
-### Windows Systems
-
-Optional executable file for Windows users. Python and the required packages are included in the executable.
-
-- 36 MB of free space for the executable
-- 45 MB of free space for temporary files
+This script is a demo of my [pyautotrace](https://github.com/lemonyte/pyautotrace) library.
 
 ## Usage
 
-Download the executable file `turtle_drawer.exe` from the [latest release](https://github.com/lemonyte/turtle-drawer/releases/latest). If you are not using Windows, download the source code and use the Python file.
+First, choose a regular JPEG or PNG image to draw. Simple 2D images like clipart vectorize best.
 
-### Preparing an Image
+If you don't have [uv](https://docs.astral.sh/uv/) yet, install it.
 
-First, choose a regular image to draw. Simple 2D images like clipart vectorize best. Once you have an image, go to <https://autotracer.org> and convert it to an SVG image. Save the SVG image on your computer. You may also use an SVG image from another source, but keep in mind this program is meant to be used with SVG images in the format provided by <https://autotracer.org>, and not all SVG images are in this format. To start drawing, run the program from a terminal.
+No need to download or install anything else! You can run the script directly with uv:
+
+```bash
+uv run https://raw.githubusercontent.com/lemonyte/turtle-drawer/refs/heads/main/turtle_drawer.py image.png
+```
+
+## Reference
 
 Command syntax:
 
 ```bash
-./turtle_drawer.exe [-h] [-l] [-q QUALITY] [-n N] image_path
+uv run turtle_drawer.py [-h] [-l] [-q QUALITY] [--speed SPEED] [--width WIDTH] [--height HEIGHT] path
 ```
 
 ### Options
 
-Option|Parameters|Default|Description
+Option|Type|Default|Description
 --|--|--|--
-`-h`, `--help`|None|None|Show this help message
-`-l`, `--loop`|None|`False`|Continuously draw and erase the image on repeat
-`-q`, `--quality`|Integer|`1`|Set the quality of the drawing, lower value equals higher quality
-`-n`|Integer|`1`|Number of actions before a screen update is called, higher value equals faster drawing. Set to `0` for instant drawing. See the [Turtle docs](https://docs.python.org/3/library/turtle.html#turtle.tracer)
+`-h`, `--help`|Flag|None|Show a help message.
+`-l`, `--loop`|Flag|`False`|Continuously draw and erase the image on repeat.
+`-q`, `--quality`|Integer|`10`|Set the quality of the drawing, higher value equals higher quality.
+`--speed`|Integer|`1000`|Number of actions before a screen update is called, higher value equals faster drawing. Set to `0` for instant drawing. See the [Turtle docs](https://docs.python.org/3/library/turtle.html#turtle.tracer).
+`--size`|Integer|`0`|Set the max size of the image to draw, in pixels. Set to `0` to use the original image size.
 
 Example:
 
 ```bash
-./turtle_drawer.exe -l -q 8 -n 1000 path/to/image.svg
+uv run turtle_drawer.py --loop --quality 50 --speed 100 --size 900 path/to/image.png
 ```
 
-If you are using the Python file, replace `./turtle_drawer.exe` with `python turtle_drawer.py`. When run, the program will take some time to first unpack all the necessary resources if the `.exe` file is being used, and then parse the SVG image. The time it takes to parse and draw the image depends on the complexity of the image and the performance of your system. Experiment with the `-n` option to find a value that works well. For complex images a value of `100` or greater is recommended.
+When run, the program will take some time to vectorize the raster image. The time it takes to vectorize and draw the image depends on the complexity of the image and the performance of your system. Experiment with the `--speed` option to find a value that works well. For complex images a value of `1000` or greater is recommended.
 
 ## License
 
